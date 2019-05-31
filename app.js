@@ -28,7 +28,7 @@ function renderCafe(doc){
 }
 
 // getting data
-db.collection('cafes').get().then(snapshot => {
+db.collection('cafes').where('name', '==', 'Cafe').where('city','==','San Diego').get().then(snapshot => {
     snapshot.docs.forEach(doc => {
         renderCafe(doc);
     });
