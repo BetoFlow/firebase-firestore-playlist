@@ -12,7 +12,7 @@
 
             <form id="add-cafe-form">
                 <input type="text" name="name" placeholder="Cafe name">
-                <input type="text" name="city" placeholder="Cafe city">
+                <input type="text" name="disease_speech" placeholder="disease_speech">
                 <button>Add Cafe</button>
             </form>
 
@@ -23,13 +23,14 @@
         <script>
             // Initialize Firebase
             var config = {
-                apiKey: "AIzaSyBrItE-kYM4dU0kaft7WYjb3749lCv42uA",
-                authDomain: "ninja-firestore.firebaseapp.com",
-                databaseURL: "https://ninja-firestore.firebaseio.com",
-                projectId: "ninja-firestore",
-                storageBucket: "ninja-firestore.appspot.com",
-                messagingSenderId: "176079657618"
-            };
+                apiKey: "AIzaSyBRI4i1VRVjRftJ1_oV2Tc50ZuwNKX3M0c",
+                authDomain: "syngentademo-58a97.firebaseapp.com",
+                databaseURL: "https://syngentademo-58a97.firebaseio.com",
+                projectId: "syngentademo-58a97",
+                storageBucket: "syngentademo-58a97.appspot.com",
+                messagingSenderId: "686574536941",
+                appId: "1:686574536941:web:e512be5234cfcf80"
+                };
             firebase.initializeApp(config);
             const db = firebase.firestore();
             db.settings({ timestampsInSnapshots: true }); 

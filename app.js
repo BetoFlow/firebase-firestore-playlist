@@ -10,7 +10,7 @@ function renderCafe(doc){
 
     li.setAttribute('data-id', doc.id);
     name.textContent = doc.data().name;
-    city.textContent = doc.data().city;
+    city.textContent = doc.data().disease_speech;
     cross.textContent = 'x';
 
     li.appendChild(name);
@@ -23,30 +23,56 @@ function renderCafe(doc){
     cross.addEventListener('click', (e) => {
         e.stopPropagation();
         let id = e.target.parentElement.getAttribute('data-id');
-        db.collection('cafes').doc(id).delete();
+        db.collection('FirstCollection').doc(id).delete();
     });
 }
 
 // getting data
-// db.collection('cafes').orderBy('city').get().then(snapshot => {
-//     snapshot.docs.forEach(doc => {
-//         renderCafe(doc);
-//     });
-// });
+const dialogflowAgentDoc = db.collection('FirstCollection');
+/*
+dialogflowAgentDoc.where('disease_speech', '==', "TestBug").get().then(snapshot => {
+    snapshot.docs.forEach(doc => {
+        renderCafe(doc);
+        renderCafe(snapshot.docs[0]);
+    //});
+});
+*/
+dialogflowAgentDoc.where('disease_speech', '==', "Damping off y Enfermedades de las raíces").where('crops', '==', 'soja').get()
+			.then(snapshot => {
+                snapshot.docs.forEach(doc => {
+                    renderCafe(doc);
+                });
+				if (!snapshot.docs[0].exists) {
+				  console.log("Hay bugs");
+				} 
+				else {
+                    var mensaje='';
+					snapshot.docs.map((docs) => {
+						mensaje += `${docs.data().name} ` + `\n`;
+                        }
+                        );
+                    console.log(mensaje);
+                    //renderCafe(snapshot.docs[0]);
+				}
+				//return Promise.resolve('Read complete');
+			})
+			.catch(() => {
+				console.log('Hubo un error intentando leer la base de datos');
+			});
 
 // saving data
 form.addEventListener('submit', (e) => {
     e.preventDefault();
-    db.collection('cafes').add({
+    db.collection('FirstCollection').add({
         name: form.name.value,
-        city: form.city.value
+        disease_speech: form.disease_speech.value
     });
     form.name.value = '';
-    form.city.value = '';
+    form.disease_speech.value = '';
 });
 
-// real-time listener
-db.collection('cafes').orderBy('city').onSnapshot(snapshot => {
+// real-time listener/*
+/*db.collection('cafes').orderBy('city').onSnapshot(snapshot => {
     let changes = snapshot.docChanges();
     changes.forEach(change => {
         console.log(change.doc.data());
@@ -57,7 +83,7 @@ db.collection('cafes').orderBy('city').onSnapshot(snapshot => {
             cafeList.removeChild(li);
         }
     });
-});
+});*/
 
 // updating records (console demo)
 // db.collection('cafes').doc('DOgwUvtEQbjZohQNIeMr').update({
