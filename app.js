@@ -37,7 +37,7 @@ dialogflowAgentDoc.where('disease_speech', '==', "TestBug").get().then(snapshot 
     //});
 });
 */
-dialogflowAgentDoc.where('disease_speech', '==', "Damping off y Enfermedades de las raíces").where('crops', '==', 'soja').get()
+dialogflowAgentDoc.where('disease_speech', 'array-contains', 'Damping off y Enfermedades de las raíces').where('crops', '==', 'soja').get()
 			.then(snapshot => {
                 snapshot.docs.forEach(doc => {
                     renderCafe(doc);
